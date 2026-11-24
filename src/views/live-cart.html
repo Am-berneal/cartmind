@@ -1,0 +1,508 @@
+<div class="flex flex-col w-full">
+<div class="p-space-lg flex flex-col gap-space-lg w-full max-w-[1560px] mx-auto">
+<!-- Top Simulation Control Bar -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col gap-space-md">
+<!-- Breadcrumb & Connection Status -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm flex-wrap">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-primary animate-ping"></span>
+<span class="w-2 h-2 -ml-3.5 rounded-full bg-primary"></span>
+<span class="font-table-cell text-table-cell text-primary font-semibold">Live Stream Active</span>
+</div>
+<span class="text-outline-variant font-label-md">/</span>
+<span class="font-table-cell text-table-cell text-on-surface-variant">Real-Time Event Bus</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface-variant font-semibold">Latency 14ms</span>
+<div class="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-low text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-primary">person</span>
+<span class="font-label-sm text-label-sm font-semibold tracking-normal">Session #LC-9402</span>
+<span class="text-outline-variant">•</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Italian Dinner Mission</span>
+</div>
+</div>
+<!-- Simulation Quick Action Controls -->
+<div class="flex items-center gap-space-sm flex-wrap">
+<div class="flex items-center bg-surface-container rounded-lg p-0.5">
+<button class="flex items-center gap-1 px-3 py-1 rounded bg-primary text-on-primary font-label-md text-label-md shadow-sm transition-all" id="sim-btn-play" type="button">
+<span class="material-symbols-outlined text-[16px]">play_arrow</span>
+<span>Run Stream</span>
+</button>
+<button class="flex items-center gap-1 px-2.5 py-1 rounded text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all" id="sim-btn-pause" type="button">
+<span class="material-symbols-outlined text-[16px]">pause</span>
+<span>Pause</span>
+</button>
+</div>
+<!-- Speed Controls -->
+<div class="flex items-center bg-surface-container rounded-lg p-0.5">
+<button class="px-2.5 py-1 rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors" type="button">1x</button>
+<button class="px-2.5 py-1 rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors" type="button">2x</button>
+<button class="px-2.5 py-1 rounded bg-primary text-on-primary font-label-sm text-label-sm font-semibold shadow-sm" type="button">5x</button>
+</div>
+<button class="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-table-cell text-table-cell transition-colors" id="sim-btn-reset" type="button">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">restart_alt</span>
+<span>Reset Basket</span>
+</button>
+</div>
+</div>
+<!-- Live Basket Injection Search Bar -->
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full bg-surface-container-low rounded-lg pl-10 pr-24 py-2 font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant/70 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all" id="product-inject-input" placeholder="Manually inject SKU (e.g. Pecorino Romano, White Truffle Oil, Fresh Basil...)" type="text"/>
+<button class="absolute right-2 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded bg-surface-container-highest hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm flex items-center gap-1 transition-colors" id="inject-trigger-btn" type="button">
+<span>Inject SKU</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">↵</span>
+</button>
+</div>
+</div>
+<!-- Main Workspace Split Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- LEFT COLUMN: Active Basket Sequence -->
+<section class="lg:col-span-5 flex flex-col gap-space-md">
+<!-- Basket Panel Header -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">shopping_basket</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Active Basket Sequence</h2>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold" id="cart-item-count">4 Items</span>
+</div>
+<!-- Intent Detection Card -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[16px]">psychology</span>
+<span class="font-label-md text-label-md text-primary uppercase tracking-wide">Intent Pattern</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-bold">96% Confident</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-table-cell text-table-cell text-on-surface font-semibold">Italian Pasta Night (Premium At-Home)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">4/5 Key Archetypes Found</span>
+</div>
+<!-- Archetype Micro Tags -->
+<div class="flex flex-wrap gap-1 mt-1">
+<span class="px-1.5 py-0.5 rounded bg-primary text-on-primary font-label-sm text-label-sm font-medium">Starch Base: Penne</span>
+<span class="px-1.5 py-0.5 rounded bg-primary text-on-primary font-label-sm text-label-sm font-medium">Sauce: San Marzano</span>
+<span class="px-1.5 py-0.5 rounded bg-primary text-on-primary font-label-sm text-label-sm font-medium">Fat: Cold Pressed Oil</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm">Missing: DOP Hard Cheese</span>
+</div>
+</div>
+</div>
+<!-- Basket Sequence Stream (Chronological) -->
+<div class="flex flex-col gap-2.5" id="basket-timeline-list">
+<!-- Step 1 -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex items-center justify-between gap-space-sm transition-all hover:bg-surface-container-low/40">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-7 h-7 rounded-full bg-surface-container flex items-center justify-center font-table-cell text-table-cell text-on-surface font-bold shrink-0">1</div>
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden shrink-0 relative">
+<div class="img-tile" role="img" aria-label="High quality studio shot of raw artisanal durum penne rigate dry pasta in sleek "><span class="material-symbols-outlined">dinner_dining</span></div>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-table-cell text-table-cell text-on-surface font-semibold truncate">Artisan Durum Penne Rigate 500g</span>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span>SKU #IT-P-082</span>
+<span>•</span>
+<span>Added 3m ago</span>
+<span>•</span>
+<span class="text-primary font-semibold">Qty 1</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0">
+<span class="font-table-cell text-table-cell text-on-surface font-bold">₹145</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Margin 41%</span>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex items-center justify-between gap-space-sm transition-all hover:bg-surface-container-low/40">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-7 h-7 rounded-full bg-surface-container flex items-center justify-center font-table-cell text-table-cell text-on-surface font-bold shrink-0">2</div>
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden shrink-0 relative">
+<div class="img-tile" role="img" aria-label="Can of authentic San Marzano organic crushed tomato sauce with vintage typograph"><span class="material-symbols-outlined">soup_kitchen</span></div>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-table-cell text-table-cell text-on-surface font-semibold truncate">San Marzano Crushed Tomato Sauce 400g</span>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span>SKU #IT-S-441</span>
+<span>•</span>
+<span>Added 2m ago</span>
+<span>•</span>
+<span class="text-primary font-semibold">Qty 1</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0">
+<span class="font-table-cell text-table-cell text-on-surface font-bold">₹220</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Margin 36%</span>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex items-center justify-between gap-space-sm transition-all hover:bg-surface-container-low/40">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-7 h-7 rounded-full bg-surface-container flex items-center justify-center font-table-cell text-table-cell text-on-surface font-bold shrink-0">3</div>
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden shrink-0 relative">
+<div class="img-tile" role="img" aria-label="Dark green glass bottle of extra virgin cold pressed olive oil with gold foiled "><span class="material-symbols-outlined">water_drop</span></div>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-table-cell text-table-cell text-on-surface font-semibold truncate">Extra Virgin Cold Pressed Olive Oil 500ml</span>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span>SKU #IT-O-103</span>
+<span>•</span>
+<span>Added 45s ago</span>
+<span>•</span>
+<span class="text-primary font-semibold">Qty 1</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0">
+<span class="font-table-cell text-table-cell text-on-surface font-bold">₹580</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Margin 44%</span>
+</div>
+</div>
+<!-- Step 4 (LATEST - Pulsing Glow Item) -->
+<div class="bg-surface-container-lowest rounded-xl shadow-md p-space-md flex items-center justify-between gap-space-sm relative overflow-hidden transition-all bg-gradient-to-r from-primary/5 via-surface-container-lowest to-surface-container-lowest" id="step-4-card">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center font-table-cell text-table-cell font-bold shrink-0 shadow-sm">4</div>
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden shrink-0 relative">
+<div class="img-tile" role="img" aria-label="Vibrant fresh green Genovese basil leaves in clear recyclable eco container with"><span class="material-symbols-outlined">eco</span></div>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-table-cell text-table-cell text-on-surface font-bold truncate">Fresh Sweet Genovese Basil 50g</span>
+<span class="px-1.5 py-0.2 rounded-full bg-primary text-on-primary font-label-sm text-label-sm uppercase tracking-wider animate-pulse">Just Added</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span>SKU #PR-B-290</span>
+<span>•</span>
+<span class="text-primary font-medium">Added 8s ago</span>
+<span>•</span>
+<span class="text-primary font-semibold">Qty 1</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0">
+<span class="font-table-cell text-table-cell text-primary font-bold">₹65</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Margin 28%</span>
+</div>
+</div>
+</div>
+<!-- Real-Time Basket Financial Summary Footer -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col gap-space-sm">
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Current Basket Subtotal</span>
+<span class="font-metric-lg text-metric-lg text-on-surface font-bold tracking-tight" id="metric-subtotal">₹1,010</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">4 unique SKUs</span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Cohort Benchmark AOV</span>
+<span class="font-metric-lg text-metric-lg text-on-surface-variant font-semibold tracking-tight">₹1,485</span>
+<span class="font-label-sm text-label-sm text-primary font-medium">Gap: ₹475 to unlock peak</span>
+</div>
+</div>
+<!-- Free Delivery Threshold Velocity -->
+<div class="p-space-sm rounded-lg bg-surface-container flex flex-col gap-1.5">
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary text-[15px]">local_shipping</span>
+<span class="font-semibold text-on-surface">Express Delivery Status</span>
+</div>
+<span class="text-primary font-bold">₹190 remaining for Free Express</span>
+</div>
+<!-- Progress Bar -->
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all duration-500" style="width: 84.1%;"></div>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>Min Spend: ₹1,200</span>
+<span class="font-semibold text-on-surface">84.1% Achieved</span>
+</div>
+</div>
+<!-- Basket Margin & Cross Sell Potential Matrix -->
+<div class="grid grid-cols-2 gap-space-sm pt-1">
+<div class="flex items-center justify-between px-space-sm py-1.5 rounded-lg bg-surface-container-low">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Blended Gross Margin</span>
+<span class="font-table-cell text-table-cell text-on-surface font-bold">38.2%</span>
+</div>
+<div class="flex items-center justify-between px-space-sm py-1.5 rounded-lg bg-surface-container-low">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Calculated Lift Room</span>
+<span class="font-table-cell text-table-cell text-primary font-bold">+₹385</span>
+</div>
+</div>
+</div>
+</section>
+<!-- RIGHT COLUMN: Real-Time CartMind AI Engine Predictions -->
+<section class="lg:col-span-7 flex flex-col gap-space-md">
+<!-- Header Panel with Model Metadata -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<div class="w-8 h-8 rounded-lg bg-primary-fixed flex items-center justify-center text-on-primary-fixed shrink-0">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Predicted Next-in-Cart</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Ranked attachments based on sequence affinity</p>
+</div>
+</div>
+<div class="flex items-center gap-2 self-start sm:self-auto">
+<span class="px-2.5 py-1 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface font-semibold flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+              Graph Neural Affinity v4.2
+            </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Refreshed 8s ago</span>
+</div>
+</div>
+<!-- Predicted Recommendations Cards (Ranked 1 to 5) -->
+<div class="flex flex-col gap-2.5">
+<!-- Recommendation 1: Aged Parmigiano Reggiano -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col sm:flex-row sm:items-center justify-between gap-space-md transition-all hover:shadow-md group">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-6 h-6 rounded-full bg-primary-fixed flex items-center justify-center font-label-sm text-label-sm text-on-primary-fixed font-bold shrink-0">#1</div>
+<div class="w-14 h-14 rounded-lg bg-surface-container overflow-hidden shrink-0 relative">
+<div class="img-tile" role="img" aria-label="Wedge of authentic aged Parmigiano Reggiano cheese with stamp visible on hard ri"><span class="material-symbols-outlined">lunch_dining</span></div>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Aged Parmigiano Reggiano DOP 200g</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-primary font-semibold">Complement</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm mt-0.5">
+<span class="font-table-cell text-table-cell text-on-surface font-bold">₹395</span>
+<span>•</span>
+<span>Expected AOV Lift: <strong class="text-primary">+₹395</strong></span>
+<span>•</span>
+<span class="text-on-surface-variant">Zero Starch Conflict</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-md sm:shrink-0 justify-between sm:justify-end">
+<!-- Probability Graphic -->
+<div class="flex flex-col items-end w-28">
+<div class="flex items-center justify-between w-full font-label-sm text-label-sm">
+<span class="text-on-surface-variant">Affinity</span>
+<span class="font-bold text-primary">88%</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-1 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 88%;"></div>
+</div>
+</div>
+<button class="inject-prediction-btn px-3 py-1.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-table-cell text-table-cell flex items-center gap-1 transition-all shadow-sm shrink-0" data-name="Aged Parmigiano Reggiano DOP 200g" data-price="395" type="button">
+<span class="material-symbols-outlined text-[16px]">add_shopping_cart</span>
+<span>+ Inject Offer</span>
+</button>
+</div>
+</div>
+<!-- Recommendation 2: Garlic Herb Ciabatta -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col sm:flex-row sm:items-center justify-between gap-space-md transition-all hover:shadow-md group">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center font-label-sm text-label-sm text-on-surface font-bold shrink-0">#2</div>
+<div class="w-14 h-14 rounded-lg bg-surface-container overflow-hidden shrink-0 relative">
+<div class="img-tile" role="img" aria-label="Crusty freshly baked garlic and herb artisan ciabatta bread loaf sliced on woode"><span class="material-symbols-outlined">bakery_dining</span></div>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Garlic Herb Artisan Ciabatta Loaf</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-primary font-semibold">Side Item</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm mt-0.5">
+<span class="font-table-cell text-table-cell text-on-surface font-bold">₹120</span>
+<span>•</span>
+<span>Expected AOV Lift: <strong class="text-primary">+₹120</strong></span>
+<span>•</span>
+<span>Fast Turn Fresh Bakery</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-md sm:shrink-0 justify-between sm:justify-end">
+<div class="flex flex-col items-end w-28">
+<div class="flex items-center justify-between w-full font-label-sm text-label-sm">
+<span class="text-on-surface-variant">Affinity</span>
+<span class="font-bold text-primary">79%</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-1 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 79%;"></div>
+</div>
+</div>
+<button class="inject-prediction-btn px-3 py-1.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-table-cell text-table-cell flex items-center gap-1 transition-all shadow-sm shrink-0" data-name="Garlic Herb Artisan Ciabatta Loaf" data-price="120" type="button">
+<span class="material-symbols-outlined text-[16px]">add_shopping_cart</span>
+<span>+ Inject Offer</span>
+</button>
+</div>
+</div>
+<!-- Recommendation 3: Chianti Classico DOCG -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col sm:flex-row sm:items-center justify-between gap-space-md transition-all hover:shadow-md group">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center font-label-sm text-label-sm text-on-surface font-bold shrink-0">#3</div>
+<div class="w-14 h-14 rounded-lg bg-surface-container overflow-hidden shrink-0 relative">
+<div class="img-tile" role="img" aria-label="Chianti Classico DOCG red wine bottle with black rooster emblem label next to a "><span class="material-symbols-outlined">wine_bar</span></div>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Chianti Classico DOCG Red Wine 750ml</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-secondary font-semibold">High Margin</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm mt-0.5">
+<span class="font-table-cell text-table-cell text-on-surface font-bold">₹1,450</span>
+<span>•</span>
+<span>Expected AOV Lift: <strong class="text-primary">+₹1,450</strong></span>
+<span>•</span>
+<span>Meal Pairing Trigger</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-md sm:shrink-0 justify-between sm:justify-end">
+<div class="flex flex-col items-end w-28">
+<div class="flex items-center justify-between w-full font-label-sm text-label-sm">
+<span class="text-on-surface-variant">Affinity</span>
+<span class="font-bold text-primary">68%</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-1 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 68%;"></div>
+</div>
+</div>
+<button class="inject-prediction-btn px-3 py-1.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-table-cell text-table-cell flex items-center gap-1 transition-all shadow-sm shrink-0" data-name="Chianti Classico DOCG Red Wine 750ml" data-price="1450" type="button">
+<span class="material-symbols-outlined text-[16px]">add_shopping_cart</span>
+<span>+ Inject Offer</span>
+</button>
+</div>
+</div>
+<!-- Recommendation 4: Pine Nuts for Pesto -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col sm:flex-row sm:items-center justify-between gap-space-md transition-all hover:shadow-md group">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center font-label-sm text-label-sm text-on-surface font-bold shrink-0">#4</div>
+<div class="w-14 h-14 rounded-lg bg-surface-container overflow-hidden shrink-0 relative">
+<div class="img-tile" role="img" aria-label="Small pouch of ivory Italian pine nuts for authentic pesto sauce preparation, wo"><span class="material-symbols-outlined">grain</span></div>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Pine Nuts (Pignoli) for Pesto 100g</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-primary font-semibold">Ingredient Pair</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm mt-0.5">
+<span class="font-table-cell text-table-cell text-on-surface font-bold">₹320</span>
+<span>•</span>
+<span>Expected AOV Lift: <strong class="text-primary">+₹320</strong></span>
+<span>•</span>
+<span>Basil Correlated</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-md sm:shrink-0 justify-between sm:justify-end">
+<div class="flex flex-col items-end w-28">
+<div class="flex items-center justify-between w-full font-label-sm text-label-sm">
+<span class="text-on-surface-variant">Affinity</span>
+<span class="font-bold text-primary">61%</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-1 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 61%;"></div>
+</div>
+</div>
+<button class="inject-prediction-btn px-3 py-1.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-table-cell text-table-cell flex items-center gap-1 transition-all shadow-sm shrink-0" data-name="Pine Nuts (Pignoli) for Pesto 100g" data-price="320" type="button">
+<span class="material-symbols-outlined text-[16px]">add_shopping_cart</span>
+<span>+ Inject Offer</span>
+</button>
+</div>
+</div>
+<!-- Recommendation 5: Organic Sea Salt Grinder -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col sm:flex-row sm:items-center justify-between gap-space-md transition-all hover:shadow-md group">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center font-label-sm text-label-sm text-on-surface font-bold shrink-0">#5</div>
+<div class="w-14 h-14 rounded-lg bg-surface-container overflow-hidden shrink-0 relative">
+<div class="img-tile" role="img" aria-label="Clear glass sea salt grinder filled with coarse Mediterranean white crystals, st"><span class="material-symbols-outlined">grain</span></div>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Organic Sea Salt Grinder 110g</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface-variant font-semibold">Pantry Staple</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm mt-0.5">
+<span class="font-table-cell text-table-cell text-on-surface font-bold">₹185</span>
+<span>•</span>
+<span>Expected AOV Lift: <strong class="text-primary">+₹185</strong></span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-md sm:shrink-0 justify-between sm:justify-end">
+<div class="flex flex-col items-end w-28">
+<div class="flex items-center justify-between w-full font-label-sm text-label-sm">
+<span class="text-on-surface-variant">Affinity</span>
+<span class="font-bold text-primary">54%</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-1 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 54%;"></div>
+</div>
+</div>
+<button class="inject-prediction-btn px-3 py-1.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-table-cell text-table-cell flex items-center gap-1 transition-all shadow-sm shrink-0" data-name="Organic Sea Salt Grinder 110g" data-price="185" type="button">
+<span class="material-symbols-outlined text-[16px]">add_shopping_cart</span>
+<span>+ Inject Offer</span>
+</button>
+</div>
+</div>
+</div>
+<!-- AI Guardrails & Cannibalization Prevention Panel -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col gap-space-sm mt-space-xs">
+<!-- Guardrail Banner Header -->
+<div class="flex flex-wrap items-center justify-between gap-space-xs">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-md bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">security</span>
+</div>
+<div class="flex flex-col">
+<span class="font-table-cell text-table-cell text-on-surface font-semibold">Suppressed by Anti-Cannibalization Guardrails</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">2 substitute SKUs filtered out to preserve transaction margin</span>
+</div>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-low text-primary font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+              Lift Protected: ₹365
+            </span>
+</div>
+<!-- Muted/Suppressed Items Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm opacity-75">
+<!-- Suppressed Item 1 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-2 relative">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-error text-[18px] shrink-0">block</span>
+<div class="flex flex-col min-w-0">
+<span class="font-table-cell text-table-cell text-on-surface font-medium line-through truncate">Barilla Spaghetti No. 5 (500g)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹130 • Category: Pasta Starch</span>
+</div>
+</div>
+<span class="px-1.5 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-error font-bold shrink-0">92% Conflict</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">
+<strong>Why Suppressed:</strong> Direct substitute for Step 1 Artisan Penne. Recommending competing starch would reduce basket variety and customer decision confidence.
+              </p>
+</div>
+<!-- Suppressed Item 2 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-2 relative">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-error text-[18px] shrink-0">block</span>
+<div class="flex flex-col min-w-0">
+<span class="font-table-cell text-table-cell text-on-surface font-medium line-through truncate">Prego Traditional Sauce 350g</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹160 • Category: Jarred Sauce</span>
+</div>
+</div>
+<span class="px-1.5 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-error font-bold shrink-0">89% Conflict</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">
+<strong>Why Suppressed:</strong> Direct substitute for Step 2 San Marzano. Offering mass-market sauce would cannibalize the high-tier DOP basket value.
+              </p>
+</div>
+</div>
+<!-- Bottom Micro Status Bar -->
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm px-space-xs pt-1">
+<span>Anti-Cannibalization Policy: <span class="text-on-surface font-medium">Strict Intra-Category Exclusions</span></span>
+<span class="flex items-center gap-1 text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+              Auto-tuning enabled
+            </span>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>

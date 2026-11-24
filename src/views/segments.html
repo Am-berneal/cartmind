@@ -1,0 +1,415 @@
+<div class="flex flex-col w-full">
+<div class="px-space-xl py-space-lg flex flex-col gap-space-lg">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary bg-primary-fixed px-space-sm py-0.5 rounded-full">RFM + Missions</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Updated 12 mins ago</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Customer Segments</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">RFM Cohort Migration &amp; Shopping Mission Matrix</p>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="flex items-center gap-space-xs px-space-md py-space-sm rounded-lg bg-surface-container-lowest text-on-surface shadow-sm hover:bg-surface-container-low transition-colors font-table-cell text-table-cell cursor-pointer" onclick="showToast('Exporting 5 RFM cohorts to CSV...')" type="button">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">download</span>
+<span>Export Cohorts</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-sm rounded-lg bg-primary text-on-primary shadow-sm hover:bg-primary-container transition-colors font-table-cell text-table-cell cursor-pointer" onclick="showToast('Syncing segments with Salesforce &amp; Klaviyo CRM...')" type="button">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+<span>Sync to CRM</span>
+</button>
+</div>
+</div>
+<!-- Prominent Alert Banner -->
+<div class="bg-error-container text-on-error-container rounded-xl p-space-md shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-space-md">
+<div class="flex items-start sm:items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-error text-on-error flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-error-container">1,240 Loyal customers moved to At Risk this month</span>
+<span class="font-body-sm text-body-sm text-on-error-container/80">3.8% cohort velocity spike detected primarily in Weekly Stock-up &amp; Quick Top-up missions.</span>
+</div>
+</div>
+<button class="shrink-0 flex items-center gap-space-xs px-space-md py-space-sm rounded-lg bg-error text-on-error hover:bg-tertiary transition-colors font-table-cell text-table-cell shadow-sm cursor-pointer" onclick="inspectChurnCohort()" type="button">
+<span>Inspect Churn Cohort</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<!-- Top Section: RFM Segment Migration (Sankey Diagram) -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<h2 class="font-headline-md text-headline-md text-on-surface">RFM Segment Migration (Last Month vs This Month)</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Month-over-month shopper transition velocity across core lifecycle tiers</p>
+</div>
+<div class="flex flex-wrap items-center gap-space-md">
+<div class="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container-low">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Retained / Upgraded</span>
+</div>
+<div class="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-error-container">
+<span class="w-2.5 h-2.5 rounded-full bg-error"></span>
+<span class="font-label-sm text-label-sm text-on-error-container">Churn Risk Flow (1,240)</span>
+</div>
+<div class="px-space-md py-1 rounded-lg bg-surface-container-low font-table-cell text-table-cell text-on-surface">
+            Total Tracked: <span class="font-headline-sm text-headline-sm text-primary">142,800</span>
+</div>
+</div>
+</div>
+<!-- High-Precision SVG Sankey Diagram -->
+<div class="relative w-full overflow-x-auto">
+<svg aria-label="RFM Segment Migration Sankey Diagram" class="w-full min-w-[760px] h-auto select-none" viewbox="0 0 1000 340">
+<!-- Column Headers -->
+<text class="fill-on-surface-variant font-label-md text-label-md uppercase" style="font-size: 11px; font-weight: 600;" x="20" y="20">LAST MONTH (SEP)</text>
+<text class="fill-on-surface-variant font-label-md text-label-md uppercase" style="font-size: 11px; font-weight: 600;" text-anchor="end" x="980" y="20">THIS MONTH (OCT)</text>
+<!-- Flows: Muted Slate/Teal -->
+<!-- Champions -> Champions -->
+<path class="text-primary/25 hover:text-primary/45 transition-colors cursor-pointer" d="M 160 62 C 420 62, 580 62, 840 62" data-flow="Champions → Champions: 24,100 shoppers" fill="none" stroke="currentColor" stroke-width="34"></path>
+<!-- Champions -> Loyal -->
+<path class="text-primary/15 hover:text-primary/35 transition-colors cursor-pointer" d="M 160 84 C 420 84, 580 120, 840 120" data-flow="Champions → Loyal: 2,350 shoppers" fill="none" stroke="currentColor" stroke-width="8"></path>
+<!-- Loyal -> Champions -->
+<path class="text-primary/20 hover:text-primary/40 transition-colors cursor-pointer" d="M 160 122 C 420 122, 580 84, 840 84" data-flow="Loyal → Champions: 3,120 shoppers" fill="none" stroke="currentColor" stroke-width="10"></path>
+<!-- Loyal -> Loyal -->
+<path class="text-primary/25 hover:text-primary/45 transition-colors cursor-pointer" d="M 160 142 C 420 142, 580 140, 840 140" data-flow="Loyal → Loyal: 31,400 shoppers" fill="none" stroke="currentColor" stroke-width="30"></path>
+<!-- HIGHLIGHTED FLOW: Loyal -> At Risk (1,240 shoppers) -->
+<path class="text-error/85 hover:text-error transition-colors cursor-pointer" d="M 160 164 C 440 164, 560 248, 840 248" data-flow="Loyal → At Risk: 1,240 shoppers (Churn Alert)" fill="none" id="churn-flow-path" stroke="currentColor" stroke-width="12"></path>
+<!-- Potential -> Loyal -->
+<path class="text-primary/20 hover:text-primary/40 transition-colors cursor-pointer" d="M 160 198 C 420 198, 580 160, 840 160" data-flow="Potential → Loyal: 4,180 shoppers" fill="none" stroke="currentColor" stroke-width="10"></path>
+<!-- Potential -> Potential -->
+<path class="text-outline-variant/45 hover:text-outline-variant/70 transition-colors cursor-pointer" d="M 160 214 C 420 214, 580 205, 840 205" data-flow="Potential → Potential: 26,800 shoppers" fill="none" stroke="currentColor" stroke-width="24"></path>
+<!-- At Risk -> Potential -->
+<path class="text-primary/15 hover:text-primary/35 transition-colors cursor-pointer" d="M 160 252 C 420 252, 580 222, 840 222" data-flow="At Risk → Potential: 1,890 shoppers" fill="none" stroke="currentColor" stroke-width="6"></path>
+<!-- At Risk -> At Risk -->
+<path class="text-outline-variant/40 hover:text-outline-variant/65 transition-colors cursor-pointer" d="M 160 264 C 420 264, 580 264, 840 264" data-flow="At Risk → At Risk: 16,400 shoppers" fill="none" stroke="currentColor" stroke-width="18"></path>
+<!-- At Risk -> Hibernating -->
+<path class="text-outline-variant/35 hover:text-outline-variant/60 transition-colors cursor-pointer" d="M 160 278 C 420 278, 580 304, 840 304" data-flow="At Risk → Hibernating: 2,410 shoppers" fill="none" stroke="currentColor" stroke-width="8"></path>
+<!-- Hibernating -> Hibernating -->
+<path class="text-outline-variant/35 hover:text-outline-variant/60 transition-colors cursor-pointer" d="M 160 314 C 420 314, 580 316, 840 316" data-flow="Hibernating → Hibernating: 28,910 shoppers" fill="none" stroke="currentColor" stroke-width="16"></path>
+<!-- Callout Label on Highlighted Flow -->
+<g transform="translate(465, 194)">
+<rect class="fill-error shadow-sm" height="28" rx="14" width="168" x="0" y="0"></rect>
+<text class="fill-on-error" style="font-size: 11px; font-weight: 600;" text-anchor="middle" x="84" y="18">Loyal → At Risk: 1,240</text>
+</g>
+<!-- Left Nodes (Last Month) -->
+<g>
+<rect class="fill-primary" height="48" rx="8" width="140" x="20" y="42"></rect>
+<text class="fill-on-primary" style="font-size: 12px; font-weight: 600;" x="32" y="63">Champions</text>
+<text class="fill-on-primary/80" style="font-size: 11px;" x="32" y="79">26,450</text>
+<rect class="fill-primary-container" height="62" rx="8" width="140" x="20" y="110"></rect>
+<text class="fill-on-primary" style="font-size: 12px; font-weight: 600;" x="32" y="136">Loyal</text>
+<text class="fill-on-primary/80" style="font-size: 11px;" x="32" y="154">35,760</text>
+<rect class="fill-surface-container-high" height="44" rx="8" width="140" x="20" y="186"></rect>
+<text class="fill-on-surface" style="font-size: 12px; font-weight: 600;" x="32" y="205">Potential</text>
+<text class="fill-on-surface-variant" style="font-size: 11px;" x="32" y="221">30,980</text>
+<rect class="fill-secondary-fixed" height="44" rx="8" width="140" x="20" y="242"></rect>
+<text class="fill-on-secondary-fixed" style="font-size: 12px; font-weight: 600;" x="32" y="261">At Risk</text>
+<text class="fill-on-secondary-fixed-variant" style="font-size: 11px;" x="32" y="277">20,700</text>
+<rect class="fill-surface-container" height="32" rx="8" width="140" x="20" y="298"></rect>
+<text class="fill-on-surface-variant" style="font-size: 12px; font-weight: 600;" x="32" y="318">Hibernating • 28,910</text>
+</g>
+<!-- Right Nodes (This Month) -->
+<g>
+<rect class="fill-primary" height="50" rx="8" width="140" x="840" y="42"></rect>
+<text class="fill-on-primary" style="font-size: 12px; font-weight: 600;" x="852" y="63">Champions</text>
+<text class="fill-on-primary/80" style="font-size: 11px;" x="852" y="79">27,220 (+2.9%)</text>
+<rect class="fill-primary-container" height="62" rx="8" width="140" x="840" y="106"></rect>
+<text class="fill-on-primary" style="font-size: 12px; font-weight: 600;" x="852" y="132">Loyal</text>
+<text class="fill-on-primary/80" style="font-size: 11px;" x="852" y="150">37,930 (+6.1%)</text>
+<rect class="fill-surface-container-high" height="46" rx="8" width="140" x="840" y="182"></rect>
+<text class="fill-on-surface" style="font-size: 12px; font-weight: 600;" x="852" y="202">Potential</text>
+<text class="fill-on-surface-variant" style="font-size: 11px;" x="852" y="218">28,690 (-7.4%)</text>
+<rect class="fill-error-container" height="44" rx="8" width="140" x="840" y="238"></rect>
+<text class="fill-on-error-container" style="font-size: 12px; font-weight: 600;" x="852" y="257">At Risk</text>
+<text class="fill-on-error-container" style="font-size: 11px;" x="852" y="273">17,640 (+1,240)</text>
+<rect class="fill-surface-container" height="36" rx="8" width="140" x="840" y="294"></rect>
+<text class="fill-on-surface-variant" style="font-size: 12px; font-weight: 600;" x="852" y="316">Hibernating • 31,320</text>
+</g>
+</svg>
+<div class="hidden absolute bottom-2 left-1/2 -translate-x-1/2 px-space-md py-space-xs rounded-full bg-inverse-surface text-inverse-on-surface font-label-sm text-label-sm shadow-md pointer-events-none" id="sankey-tooltip"></div>
+</div>
+</section>
+<!-- Middle Section: RFM x Shopping Missions Heatmap Matrix -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex flex-col gap-space-xs">
+<h2 class="font-headline-md text-headline-md text-on-surface">RFM Segments × Shopping Missions Matrix</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Cell intensity by customer density • Showing Customer Count &amp; Avg Order Value (₹)</p>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Low Density</span>
+<div class="flex items-center gap-1">
+<span class="w-4 h-3 rounded bg-surface-container-low"></span>
+<span class="w-4 h-3 rounded bg-primary/20"></span>
+<span class="w-4 h-3 rounded bg-primary/45"></span>
+<span class="w-4 h-3 rounded bg-primary/70"></span>
+<span class="w-4 h-3 rounded bg-primary"></span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">High Density</span>
+</div>
+</div>
+<div class="w-full overflow-x-auto">
+<div class="min-w-[820px] grid grid-cols-6 gap-space-sm">
+<!-- Matrix Header -->
+<div class="p-space-sm flex items-end font-label-md text-label-md uppercase text-on-surface-variant">RFM Segment</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low text-center font-label-md text-label-md uppercase text-on-surface-variant">Weekly Stock-up</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low text-center font-label-md text-label-md uppercase text-on-surface-variant">Quick Top-up</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low text-center font-label-md text-label-md uppercase text-on-surface-variant">Healthy Breakfast</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low text-center font-label-md text-label-md uppercase text-on-surface-variant">Party Night</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low text-center font-label-md text-label-md uppercase text-on-surface-variant">Baby Care</div>
+<!-- Row 1: Champions -->
+<div class="p-space-sm flex items-center gap-space-xs font-headline-sm text-headline-sm text-on-surface">
+<span class="w-2 h-6 rounded-full bg-primary"></span>
+<span>Champions</span>
+</div>
+<div class="p-space-md rounded-lg bg-primary text-on-primary flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">11,420</span>
+<span class="font-label-sm text-label-sm text-on-primary/85">₹2,840 AOV</span>
+</div>
+<div class="p-space-md rounded-lg bg-primary/70 text-on-primary flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">6,810</span>
+<span class="font-label-sm text-label-sm text-on-primary/85">₹1,120 AOV</span>
+</div>
+<div class="p-space-md rounded-lg bg-primary/70 text-on-primary flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">4,920</span>
+<span class="font-label-sm text-label-sm text-on-primary/85">₹1,650 AOV</span>
+</div>
+<div class="p-space-md rounded-lg bg-primary/45 text-on-surface flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">2,410</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹2,190 AOV</span>
+</div>
+<div class="p-space-md rounded-lg bg-primary/20 text-on-surface flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">1,660</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹3,120 AOV</span>
+</div>
+<!-- Row 2: Loyal -->
+<div class="p-space-sm flex items-center gap-space-xs font-headline-sm text-headline-sm text-on-surface">
+<span class="w-2 h-6 rounded-full bg-primary-container"></span>
+<span>Loyal</span>
+</div>
+<div class="p-space-md rounded-lg bg-primary text-on-primary flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">14,200</span>
+<span class="font-label-sm text-label-sm text-on-primary/85">₹2,140 AOV</span>
+</div>
+<div class="p-space-md rounded-lg bg-primary/70 text-on-primary flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">9,840</span>
+<span class="font-label-sm text-label-sm text-on-primary/85">₹890 AOV</span>
+</div>
+<div class="p-space-md rounded-lg bg-primary/45 text-on-surface flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">6,120</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹1,340 AOV</span>
+</div>
+<div class="p-space-md rounded-lg bg-primary/45 text-on-surface flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">4,550</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹1,780 AOV</span>
+</div>
+<div class="p-space-md rounded-lg bg-primary/20 text-on-surface flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">3,220</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹2,450 AOV</span>
+</div>
+<!-- Row 3: Potential -->
+<div class="p-space-sm flex items-center gap-space-xs font-headline-sm text-headline-sm text-on-surface">
+<span class="w-2 h-6 rounded-full bg-surface-container-high"></span>
+<span>Potential</span>
+</div>
+<div class="p-space-md rounded-lg bg-primary/45 text-on-surface flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">7,840</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹1,520 AOV</span>
+</div>
+<div class="p-space-md rounded-lg bg-primary/70 text-on-primary flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">10,410</span>
+<span class="font-label-sm text-label-sm text-on-primary/85">₹640 AOV</span>
+</div>
+<div class="p-space-md rounded-lg bg-primary/20 text-on-surface flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">4,180</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹980 AOV</span>
+</div>
+<div class="p-space-md rounded-lg bg-primary/20 text-on-surface flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">3,890</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹1,420 AOV</span>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container-low text-on-surface-variant flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">2,370</span>
+<span class="font-label-sm text-label-sm">₹1,890 AOV</span>
+</div>
+<!-- Row 4: At Risk -->
+<div class="p-space-sm flex items-center gap-space-xs font-headline-sm text-headline-sm text-on-surface">
+<span class="w-2 h-6 rounded-full bg-error"></span>
+<span>At Risk</span>
+</div>
+<div class="p-space-md rounded-lg bg-primary/45 text-on-surface flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">6,210</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹1,380 AOV</span>
+</div>
+<div class="p-space-md rounded-lg bg-primary/20 text-on-surface flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">5,420</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹580 AOV</span>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container-low text-on-surface-variant flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">2,310</span>
+<span class="font-label-sm text-label-sm">₹890 AOV</span>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container-low text-on-surface-variant flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">2,140</span>
+<span class="font-label-sm text-label-sm">₹1,210 AOV</span>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container-low text-on-surface-variant flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">1,560</span>
+<span class="font-label-sm text-label-sm">₹1,640 AOV</span>
+</div>
+<!-- Row 5: Hibernating -->
+<div class="p-space-sm flex items-center gap-space-xs font-headline-sm text-headline-sm text-on-surface">
+<span class="w-2 h-6 rounded-full bg-outline-variant"></span>
+<span>Hibernating</span>
+</div>
+<div class="p-space-md rounded-lg bg-primary/20 text-on-surface flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">11,840</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹920 AOV</span>
+</div>
+<div class="p-space-md rounded-lg bg-primary/20 text-on-surface flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">9,650</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹410 AOV</span>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container-low text-on-surface-variant flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">4,120</span>
+<span class="font-label-sm text-label-sm">₹620 AOV</span>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container-low text-on-surface-variant flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">3,810</span>
+<span class="font-label-sm text-label-sm">₹880 AOV</span>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container-low text-on-surface-variant flex flex-col items-center justify-center transition-transform hover:scale-[1.02]">
+<span class="font-headline-sm text-headline-sm">1,900</span>
+<span class="font-label-sm text-label-sm">₹1,150 AOV</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Section: Actionable Segment Cards Grid -->
+<section class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-md text-headline-md text-on-surface">Actionable Segment Cohorts</h2>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Click “Generate Campaign” to launch AI-personalized offers</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-space-md">
+<!-- Card 1: Champions -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between gap-space-md hover:shadow-md transition-shadow">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface">Champions</span>
+<span class="px-space-sm py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm">Healthy</span>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<span class="font-metric-lg text-metric-lg text-on-surface">27,220</span>
+<span class="flex items-center gap-0.5 font-label-sm text-label-sm text-primary">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>+2.9%
+              </span>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Avg AOV</span>
+<span class="font-table-cell text-table-cell text-on-surface">₹2,480</span>
+</div>
+</div>
+<button class="w-full flex items-center justify-center gap-space-xs px-space-md py-space-sm rounded-lg bg-primary text-on-primary hover:bg-primary-container transition-colors font-table-cell text-table-cell cursor-pointer" onclick="showToast('Generating VIP Early-Access Campaign for Champions...')" type="button">
+<span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+<span>Generate Campaign</span>
+</button>
+</div>
+<!-- Card 2: Loyal -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between gap-space-md hover:shadow-md transition-shadow">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface">Loyal</span>
+<span class="px-space-sm py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm">Stable</span>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<span class="font-metric-lg text-metric-lg text-on-surface">37,930</span>
+<span class="flex items-center gap-0.5 font-label-sm text-label-sm text-primary">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>+6.1%
+              </span>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Avg AOV</span>
+<span class="font-table-cell text-table-cell text-on-surface">₹1,820</span>
+</div>
+</div>
+<button class="w-full flex items-center justify-center gap-space-xs px-space-md py-space-sm rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container transition-colors font-table-cell text-table-cell cursor-pointer" onclick="showToast('Generating Bundle Upsell Campaign for Loyal...')" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary">auto_awesome</span>
+<span>Generate Campaign</span>
+</button>
+</div>
+<!-- Card 3: Potential -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between gap-space-md hover:shadow-md transition-shadow">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface">Potential</span>
+<span class="px-space-sm py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">Growing</span>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<span class="font-metric-lg text-metric-lg text-on-surface">28,690</span>
+<span class="flex items-center gap-0.5 font-label-sm text-label-sm text-error">
+<span class="material-symbols-outlined text-[16px]">trending_down</span>-7.4%
+              </span>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Avg AOV</span>
+<span class="font-table-cell text-table-cell text-on-surface">₹1,140</span>
+</div>
+</div>
+<button class="w-full flex items-center justify-center gap-space-xs px-space-md py-space-sm rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container transition-colors font-table-cell text-table-cell cursor-pointer" onclick="showToast('Generating 2nd-Order Streak Campaign for Potential...')" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary">auto_awesome</span>
+<span>Generate Campaign</span>
+</button>
+</div>
+<!-- Card 4: At Risk -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between gap-space-md hover:shadow-md transition-shadow">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface">At Risk</span>
+<span class="px-space-sm py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm">Churn Alert</span>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<span class="font-metric-lg text-metric-lg text-error">17,640</span>
+<span class="flex items-center gap-0.5 font-label-sm text-label-sm text-error">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>+1,240
+              </span>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Avg AOV</span>
+<span class="font-table-cell text-table-cell text-on-surface">₹960</span>
+</div>
+</div>
+<button class="w-full flex items-center justify-center gap-space-xs px-space-md py-space-sm rounded-lg bg-error text-on-error hover:bg-tertiary transition-colors font-table-cell text-table-cell cursor-pointer" onclick="showToast('Generating Win-Back ₹200 Voucher Campaign for At Risk...')" type="button">
+<span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+<span>Generate Campaign</span>
+</button>
+</div>
+<!-- Card 5: Hibernating -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between gap-space-md hover:shadow-md transition-shadow">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface">Hibernating</span>
+<span class="px-space-sm py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Dormant</span>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<span class="font-metric-lg text-metric-lg text-on-surface">31,320</span>
+<span class="flex items-center gap-0.5 font-label-sm text-label-sm text-error">
+<span class="material-symbols-outlined text-[16px]">trending_down</span>-3.1%
+              </span>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Avg AOV</span>
+<span class="font-table-cell text-table-cell text-on-surface">₹710</span>
+</div>
+</div>
+<button class="w-full flex items-center justify-center gap-space-xs px-space-md py-space-sm rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container transition-colors font-table-cell text-table-cell cursor-pointer" onclick="showToast('Generating Reactivation Drip Campaign for Hibernating...')" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary">auto_awesome</span>
+<span>Generate Campaign</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+<!-- Interactive Toast Notification -->
+

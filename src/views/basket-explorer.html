@@ -1,0 +1,552 @@
+<div class="flex flex-col w-full">
+<!-- Sub-Header & Global Network Filter Ribbon -->
+<div class="px-space-xl py-space-md bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm z-30">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<!-- Title Block -->
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-headline-md text-on-surface">Basket Graph &amp; Product Associations</span>
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold tracking-wide">GNN v4.2</span>
+</div>
+<div class="flex items-center gap-space-xs font-body-sm text-body-sm text-on-surface-variant">
+<span>Neural Affinity Engine</span>
+<span>•</span>
+<span class="font-medium text-primary">1,418,920 Transactions Analyzed</span>
+<span>•</span>
+<span>Graph Density: 0.048</span>
+<span>•</span>
+<span>Avg Clustering Coeff: 0.632</span>
+</div>
+</div>
+<!-- Quick Action Operations -->
+<div class="flex items-center gap-space-sm flex-wrap">
+<button class="flex items-center gap-space-xs px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-table-cell text-table-cell shadow-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">terminal</span>
+<span>Export Graph JSON</span>
+</button>
+<button class="flex items-center gap-space-xs px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-table-cell text-table-cell shadow-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[16px] text-primary">sync</span>
+<span>Recalculate Affinity</span>
+</button>
+<div class="flex items-center bg-surface-container-low rounded-lg p-0.5 shadow-sm">
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" title="Zoom in" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" title="Zoom out" type="button">
+<span class="material-symbols-outlined text-[16px]">remove</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" title="Reset view" type="button">
+<span class="material-symbols-outlined text-[16px]">center_focus_strong</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Graph Parameters & Filter Matrix -->
+<div class="flex flex-wrap items-center justify-between gap-space-md pt-space-xs">
+<div class="flex flex-wrap items-center gap-space-md">
+<!-- Department Select -->
+<div class="flex items-center gap-space-xs bg-surface-container-low rounded-lg px-2.5 py-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Dept:</span>
+<span class="font-table-cell text-table-cell font-semibold text-primary">Fresh Produce</span>
+<span class="px-1.5 py-0.2 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm">Active Focus</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">expand_more</span>
+</div>
+<!-- Slider 1: Support -->
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Min. Support:</span>
+<input class="w-24 h-1.5 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-primary" max="10" min="1" type="range" value="4"/>
+<span class="px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm font-semibold text-on-surface">0.04 (40k txns)</span>
+</div>
+<!-- Slider 2: Lift -->
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Min. Lift:</span>
+<input class="w-24 h-1.5 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-primary" max="5" min="1" type="range" value="3"/>
+<span class="px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm font-semibold text-on-surface">2.4x Lift</span>
+</div>
+<!-- Toggle: Substitutes -->
+<label class="flex items-center gap-space-xs cursor-pointer select-none">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-8 h-4 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-container-lowest after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary relative"></div>
+<span class="font-table-cell text-table-cell text-on-surface">Show Substitutes (Cannibalization)</span>
+</label>
+</div>
+<!-- Graph Legend Ribbon -->
+<div class="flex items-center gap-space-md text-label-sm font-label-sm">
+<div class="flex items-center gap-1.5">
+<span class="w-4 h-0.5 bg-primary rounded-full"></span>
+<span class="text-on-surface">Complements (Co-purchased)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-4 h-0.5 bg-outline rounded-full [border-style:dashed]"></span>
+<span class="text-on-surface-variant">Substitutes (Mutually Exclusive)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary-container"></span> Produce</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-secondary-container"></span> Dairy/Eggs</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-secondary"></span> Bakery</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-surface-tint"></span> Pantry</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Primary Dynamic Workspace: Graph Engine & Insight Drawer -->
+<div class="p-space-xl grid grid-cols-12 gap-space-lg">
+<!-- Visual Graph Arena (Col 1-8: ~67% width) -->
+<div class="col-span-12 xl:col-span-8 flex flex-col gap-space-md">
+<div class="relative bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col min-h-[760px]">
+<!-- Canvas Floating Indicator / Headless Badge -->
+<div class="absolute top-4 left-4 z-20 flex items-center gap-space-xs bg-surface-container-lowest/90 backdrop-blur-md px-3 py-1.5 rounded-lg shadow-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-primary animate-ping"></span>
+<span class="font-table-cell text-table-cell font-semibold text-on-surface">Interactive Affinity Graph</span>
+<span class="text-on-surface-variant">•</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Click any node to focus target context</span>
+</div>
+<div class="absolute top-4 right-4 z-20 flex items-center gap-1 bg-surface-container-lowest/90 backdrop-blur-md px-2.5 py-1 rounded-lg shadow-sm text-label-sm font-label-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-primary">bubble_chart</span>
+<span>Node Radius = Monthly Sales Volume (₹ GMV)</span>
+</div>
+<!-- Graph Active Flyout Tooltip (Organic Bananas) -->
+<div class="absolute top-24 left-1/2 -translate-x-1/2 z-20 bg-inverse-surface text-inverse-on-surface px-4 py-2 rounded-lg shadow-xl flex items-center gap-space-sm pointer-events-none">
+<div class="w-2.5 h-2.5 rounded-full bg-primary-fixed"></div>
+<div class="flex flex-col">
+<span class="font-table-cell text-table-cell font-bold text-inverse-on-surface">Focus Node: Organic Bananas 1kg (SKU #PR-102)</span>
+<span class="font-label-sm text-label-sm text-inverse-on-surface/80">28 Active Edges • Degree Centrality: 0.94 • PageRank Rank: #2 in Fresh Store</span>
+</div>
+</div>
+<!-- Interactive SVG Graph Representation -->
+<svg class="w-full h-full min-h-[760px] select-none" viewbox="0 0 960 760" xmlns="http://www.w3.org/2000/svg">
+<!-- Background Grid Matrix Pattern -->
+<defs>
+<pattern height="24" id="dot-grid" patternunits="userSpaceOnUse" width="24" x="0" y="0">
+<circle cx="2" cy="2" fill="#DAE2FD" opacity="0.6" r="1.2"></circle>
+</pattern>
+<radialgradient cx="50%" cy="50%" id="centerGlow" r="50%">
+<stop offset="0%" stop-color="#0F766E" stop-opacity="0.18"></stop>
+<stop offset="100%" stop-color="#0F766E" stop-opacity="0.0"></stop>
+</radialgradient>
+<filter height="140%" id="softGlow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="6"></fegaussianblur>
+<fecomposite in="SourceGraphic" in2="blur" operator="over"></fecomposite>
+</filter>
+</defs>
+<rect fill="url(#dot-grid)" height="100%" width="100%"></rect>
+<!-- Highlighting Ambient Cluster Field for Selected Item -->
+<circle cx="480" cy="380" fill="url(#centerGlow)" r="190"></circle>
+<!-- ================= EDGES (LINES) ================= -->
+<!-- Complements (Solid Emerald Lines with stroke proportional to lift) -->
+<!-- Bananas to Whole Milk (Lift 3.8x) -->
+<line opacity="0.85" stroke="#005C55" stroke-linecap="round" stroke-width="4.5" x1="480" x2="330" y1="380" y2="240"></line>
+<!-- Bananas to Peanut Butter (Lift 3.2x) -->
+<line opacity="0.8" stroke="#005C55" stroke-linecap="round" stroke-width="3.8" x1="480" x2="650" y1="380" y2="250"></line>
+<!-- Bananas to Rolled Oats (Lift 2.9x) -->
+<line opacity="0.75" stroke="#005C55" stroke-linecap="round" stroke-width="3.4" x1="480" x2="640" y1="380" y2="510"></line>
+<!-- Bananas to Brown Eggs (Lift 2.6x) -->
+<line opacity="0.7" stroke="#005C55" stroke-linecap="round" stroke-width="3.0" x1="480" x2="310" y1="380" y2="490"></line>
+<!-- Bananas to Greek Yogurt (Lift 2.4x) -->
+<line opacity="0.7" stroke="#005C55" stroke-linecap="round" stroke-width="2.6" x1="480" x2="480" y1="380" y2="570"></line>
+<!-- Peripheral inter-connections (Cross-affinity mesh) -->
+<line opacity="0.45" stroke="#BDC9C6" stroke-dasharray="3,3" stroke-width="1.2" x1="330" x2="640" y1="240" y2="510"></line>
+<line opacity="0.4" stroke="#BDC9C6" stroke-width="1.5" x1="330" x2="310" y1="240" y2="490"></line>
+<line opacity="0.5" stroke="#005C55" stroke-width="2.2" x1="650" x2="640" y1="250" y2="510"></line>
+<line opacity="0.4" stroke="#BDC9C6" stroke-width="1.2" x1="310" x2="160" y1="490" y2="470"></line>
+<line opacity="0.4" stroke="#BDC9C6" stroke-width="1.2" x1="330" x2="190" y1="240" y2="200"></line>
+<line opacity="0.4" stroke="#BDC9C6" stroke-width="1.2" x1="650" x2="790" y1="250" y2="210"></line>
+<!-- Substitutes (Cannibalization Risks - Dashed Muted Slate / Reddish Gray) -->
+<!-- Bananas to Cavendish Bananas (Cannibalization 78%) -->
+<line opacity="0.75" stroke="#BA1A1A" stroke-dasharray="6,4" stroke-width="2" x1="480" x2="230" y1="380" y2="350"></line>
+<!-- Bananas to Robusta Golden (Cannibalization 64%) -->
+<line opacity="0.65" stroke="#BA1A1A" stroke-dasharray="6,4" stroke-width="1.8" x1="480" x2="420" y1="380" y2="180"></line>
+<!-- Bananas to Honeycrisp Apples (Cross category substitute) -->
+<line opacity="0.6" stroke="#6E7977" stroke-dasharray="5,4" stroke-width="1.5" x1="480" x2="730" y1="380" y2="380"></line>
+<!-- Edge Lift Annotation Badges -->
+<g transform="translate(390, 300)">
+<rect fill="#005C55" height="20" rx="10" width="36" x="-18" y="-10"></rect>
+<text fill="#FFFFFF" font-family="Inter" font-size="10" font-weight="600" text-anchor="middle" x="0" y="3.5">3.8x</text>
+</g>
+<g transform="translate(570, 305)">
+<rect fill="#005C55" height="20" rx="10" width="36" x="-18" y="-10"></rect>
+<text fill="#FFFFFF" font-family="Inter" font-size="10" font-weight="600" text-anchor="middle" x="0" y="3.5">3.2x</text>
+</g>
+<g transform="translate(565, 450)">
+<rect fill="#005C55" height="20" rx="10" width="36" x="-18" y="-10"></rect>
+<text fill="#FFFFFF" font-family="Inter" font-size="10" font-weight="600" text-anchor="middle" x="0" y="3.5">2.9x</text>
+</g>
+<g transform="translate(340, 355)">
+<rect fill="#FFDAD6" height="18" rx="9" width="48" x="-24" y="-9"></rect>
+<text fill="#BA1A1A" font-family="Inter" font-size="9" font-weight="600" text-anchor="middle" x="0" y="3.5">Sub 78%</text>
+</g>
+<!-- ================= NODES ================= -->
+<!-- Peripheral Node 1: Sourdough Bread (Bakery) -->
+<g class="cursor-pointer group" transform="translate(190, 200)">
+<circle fill="#FEA619" opacity="0.9" r="22"></circle>
+<circle fill="transparent" opacity="0.5" r="26" stroke="#FEA619" stroke-dasharray="3,3" stroke-width="1.5"></circle>
+<text fill="#131B2E" font-family="Inter" font-size="11" font-weight="600" text-anchor="middle" y="36">Artisan Sourdough</text>
+<text fill="#3E4947" font-family="Inter" font-size="9" text-anchor="middle" y="48">Bakery • ₹4.2L</text>
+</g>
+<!-- Peripheral Node 2: Hass Avocados 4-Pack (Produce) -->
+<g class="cursor-pointer group" transform="translate(160, 470)">
+<circle fill="#005C55" opacity="0.85" r="25"></circle>
+<text fill="#131B2E" font-family="Inter" font-size="11" font-weight="600" text-anchor="middle" y="38">Avocados Hass 4-Pack</text>
+<text fill="#3E4947" font-family="Inter" font-size="9" text-anchor="middle" y="50">Produce • ₹6.8L</text>
+</g>
+<!-- Peripheral Node 3: Cold Brew Concentrate (Beverage) -->
+<g class="cursor-pointer group" transform="translate(790, 210)">
+<circle fill="#0F766E" opacity="0.8" r="20"></circle>
+<text fill="#131B2E" font-family="Inter" font-size="11" font-weight="600" text-anchor="middle" y="34">Cold Brew 500ml</text>
+<text fill="#3E4947" font-family="Inter" font-size="9" text-anchor="middle" y="46">Beverages • ₹3.1L</text>
+</g>
+<!-- SPECIAL NODE: Artisan Chia & Fig Granola (Cold-start recommendation) -->
+<g class="cursor-pointer" transform="translate(800, 480)">
+<!-- Pulsing Heuristic AI Vector Ring -->
+<circle class="animate-pulse" fill="#DAE2FD" opacity="0.3" r="32"></circle>
+<circle fill="#006A63" r="24" stroke="#80D5CB" stroke-width="2"></circle>
+<text fill="#131B2E" font-family="Inter" font-size="11" font-weight="600" text-anchor="middle" y="40">Artisan Chia &amp; Fig Granola</text>
+<!-- Heuristic pill badge -->
+<g transform="translate(0, -32)">
+<rect fill="#EAEDFF" height="22" rx="11" stroke="#DAE2FD" stroke-width="1" width="170" x="-85" y="-12"></rect>
+<text fill="#005C55" font-family="Inter" font-size="9.5" font-weight="600" text-anchor="middle" x="0" y="3">✨ New Product Cold-Start</text>
+</g>
+</g>
+<!-- Vector inference bridge line to Oats -->
+<line opacity="0.7" stroke="#005C55" stroke-dasharray="2,3" stroke-width="1.5" x1="640" x2="800" y1="510" y2="480"></line>
+<!-- Substitute Node 1: Cavendish Bananas Standard -->
+<g class="cursor-pointer" transform="translate(230, 350)">
+<circle fill="#F2F3FF" r="28" stroke="#BA1A1A" stroke-width="2"></circle>
+<text fill="#BA1A1A" font-family="Inter" font-size="10" font-weight="600" text-anchor="middle" y="4">Cavendish</text>
+<text fill="#131B2E" font-family="Inter" font-size="11" font-weight="600" text-anchor="middle" y="42">Cavendish Bananas</text>
+<text fill="#BA1A1A" font-family="Inter" font-size="9" text-anchor="middle" y="54">Cannibalization Risk 78%</text>
+</g>
+<!-- Substitute Node 2: Robusta Golden Bananas -->
+<g class="cursor-pointer" transform="translate(420, 180)">
+<circle fill="#F2F3FF" r="22" stroke="#BA1A1A" stroke-width="1.8"></circle>
+<text fill="#131B2E" font-family="Inter" font-size="11" font-weight="600" text-anchor="middle" y="36">Robusta Bananas</text>
+<text fill="#BA1A1A" font-family="Inter" font-size="9" text-anchor="middle" y="48">Cannibalization Risk 64%</text>
+</g>
+<!-- Substitute Node 3: Honeycrisp Apples -->
+<g class="cursor-pointer" transform="translate(730, 380)">
+<circle fill="#F2F3FF" r="25" stroke="#6E7977" stroke-width="1.8"></circle>
+<text fill="#131B2E" font-family="Inter" font-size="11" font-weight="600" text-anchor="middle" y="38">Honeycrisp Apples 1kg</text>
+<text fill="#3E4947" font-family="Inter" font-size="9" text-anchor="middle" y="50">Fruit Category Alternate</text>
+</g>
+<!-- Complement 1: Organic Whole Milk 1L (Dairy) -->
+<g class="cursor-pointer transition-transform hover:scale-105" transform="translate(330, 240)">
+<circle fill="#FEA619" r="32" shadow="sm" stroke="#FFFFFF" stroke-width="2.5"></circle>
+<text fill="#FFFFFF" font-family="Inter" font-size="11" font-weight="600" text-anchor="middle" y="4">Dairy</text>
+<text fill="#131B2E" font-family="Inter" font-size="11" font-weight="600" text-anchor="middle" y="44">Organic Whole Milk 1L</text>
+<text fill="#005C55" font-family="Inter" font-size="9.5" font-weight="500" text-anchor="middle" y="56">Lift: 3.8x • Conf: 54%</text>
+</g>
+<!-- Complement 2: Creamy Peanut Butter 500g (Pantry) -->
+<g class="cursor-pointer transition-transform hover:scale-105" transform="translate(650, 250)">
+<circle fill="#006A63" r="29" stroke="#FFFFFF" stroke-width="2"></circle>
+<text fill="#FFFFFF" font-family="Inter" font-size="10.5" font-weight="600" text-anchor="middle" y="4">Pantry</text>
+<text fill="#131B2E" font-family="Inter" font-size="11" font-weight="600" text-anchor="middle" y="42">Peanut Butter 500g</text>
+<text fill="#005C55" font-family="Inter" font-size="9.5" font-weight="500" text-anchor="middle" y="54">Lift: 3.2x • Conf: 42%</text>
+</g>
+<!-- Complement 3: Organic Rolled Oats 1kg (Pantry) -->
+<g class="cursor-pointer transition-transform hover:scale-105" transform="translate(640, 510)">
+<circle fill="#006A63" r="30" stroke="#FFFFFF" stroke-width="2"></circle>
+<text fill="#FFFFFF" font-family="Inter" font-size="10.5" font-weight="600" text-anchor="middle" y="4">Pantry</text>
+<text fill="#131B2E" font-family="Inter" font-size="11" font-weight="600" text-anchor="middle" y="42">Organic Rolled Oats 1kg</text>
+<text fill="#005C55" font-family="Inter" font-size="9.5" font-weight="500" text-anchor="middle" y="54">Lift: 2.9x • Conf: 39%</text>
+</g>
+<!-- Complement 4: Farm Brown Eggs 12pk (Dairy & Eggs) -->
+<g class="cursor-pointer transition-transform hover:scale-105" transform="translate(310, 490)">
+<circle fill="#FEA619" r="28" stroke="#FFFFFF" stroke-width="2"></circle>
+<text fill="#FFFFFF" font-family="Inter" font-size="10.5" font-weight="600" text-anchor="middle" y="4">Eggs</text>
+<text fill="#131B2E" font-family="Inter" font-size="11" font-weight="600" text-anchor="middle" y="42">Farm Brown Eggs 12pk</text>
+<text fill="#005C55" font-family="Inter" font-size="9.5" font-weight="500" text-anchor="middle" y="54">Lift: 2.6x • Conf: 36%</text>
+</g>
+<!-- Complement 5: Greek Yogurt Plain 400g (Dairy) -->
+<g class="cursor-pointer transition-transform hover:scale-105" transform="translate(480, 570)">
+<circle fill="#FEA619" r="26" stroke="#FFFFFF" stroke-width="2"></circle>
+<text fill="#FFFFFF" font-family="Inter" font-size="10" font-weight="600" text-anchor="middle" y="4">Dairy</text>
+<text fill="#131B2E" font-family="Inter" font-size="11" font-weight="600" text-anchor="middle" y="40">Greek Yogurt 400g</text>
+<text fill="#005C55" font-family="Inter" font-size="9.5" font-weight="500" text-anchor="middle" y="52">Lift: 2.4x • Conf: 31%</text>
+</g>
+<!-- PRIMARY FOCUS CENTRAL NODE: Organic Bananas (Large, Accent Glow Ring) -->
+<g class="cursor-pointer" transform="translate(480, 380)">
+<!-- Outer Pulsing Halo -->
+<circle class="animate-ping" fill="#80D5CB" opacity="0.3" r="56" style="animation-duration: 3s;"></circle>
+<!-- Ring Halo Indicator -->
+<circle fill="none" r="48" stroke="#005C55" stroke-dasharray="4,2" stroke-width="3"></circle>
+<!-- Core Node Circle -->
+<circle fill="#005C55" filter="url(#softGlow)" r="40"></circle>
+<text fill="#FFFFFF" font-family="Inter" font-size="14" font-weight="700" text-anchor="middle" y="-8">Organic</text>
+<text fill="#FFFFFF" font-family="Inter" font-size="13" font-weight="700" text-anchor="middle" y="10">Bananas</text>
+<text fill="#A3FAEF" font-family="Inter" font-size="9" font-weight="600" text-anchor="middle" y="24">₹12.4L GMV</text>
+<!-- Anchor Badge Tag -->
+<g transform="translate(0, 56)">
+<rect fill="#0F766E" height="20" rx="10" width="84" x="-42" y="-10"></rect>
+<text fill="#FFFFFF" font-family="Inter" font-size="9.5" font-weight="700" text-anchor="middle" x="0" y="3.5">#1 VOLUME</text>
+</g>
+</g>
+</svg>
+<!-- Canvas Bottom Status Bar -->
+<div class="px-space-md py-2 bg-surface-container-low/70 border-t border-outline-variant/30 flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-space-md">
+<span>Projection algorithm: <strong class="text-on-surface">ForceAtlas2 Direct Layout</strong></span>
+<span>Energy convergence: <strong class="text-on-surface">99.4%</strong></span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span>Real-time co-occurrence stream synced</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Product Relationship & Affinity Inspector Drawer (Col 9-12: ~33% width) -->
+<div class="col-span-12 xl:col-span-4 flex flex-col gap-space-md">
+<!-- Target Summary Card -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col gap-space-md">
+<!-- Target Header -->
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-bold">FOCUS TARGET</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">SKU #PR-102</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mt-1">Organic Bananas 1kg</h2>
+<div class="flex items-center gap-space-xs text-body-sm font-body-sm text-on-surface-variant">
+<span>Fresh Produce</span>
+<span>•</span>
+<span class="font-semibold text-on-surface">₹65.00 / pack</span>
+<span>•</span>
+<span class="text-primary font-medium">99.2% in-stock</span>
+</div>
+</div>
+<div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center p-1">
+<div class="img-tile" role="img" aria-label="A clean top-down photographic studio shot of fresh ripe organic yellow bananas n"><span class="material-symbols-outlined">nutrition</span></div>
+</div>
+</div>
+<!-- 3 KPI Micro Stats Row -->
+<div class="grid grid-cols-3 gap-space-sm pt-space-xs border-t border-outline-variant/30">
+<div class="p-2.5 rounded-lg bg-surface-container-low flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Monthly GMV</span>
+<span class="font-metric-lg text-metric-lg text-on-surface tracking-tight mt-0.5">₹12.4L</span>
+<span class="font-label-sm text-label-sm text-primary flex items-center gap-0.5 mt-0.5">
+<span class="material-symbols-outlined text-[12px]">trending_up</span> 6.2%
+            </span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Basket Attach</span>
+<span class="font-metric-lg text-metric-lg text-on-surface tracking-tight mt-0.5">41.8%</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">418 per 1k carts</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Gross Margin</span>
+<span class="font-metric-lg text-metric-lg text-on-surface tracking-tight mt-0.5">34.5%</span>
+<span class="font-label-sm text-label-sm text-primary mt-0.5">+1.8% vs Dept</span>
+</div>
+</div>
+</div>
+<!-- Section 1: Top Complements (Bundle Drivers) -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">add_shopping_cart</span>
+<span>Top Complements (Bundle Drivers)</span>
+</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Highest statistical lift when Bananas are present</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface-variant">Confidence ≥ 30%</span>
+</div>
+<!-- Complement Items List -->
+<div class="flex flex-col gap-2 mt-2">
+<!-- Item 1 -->
+<div class="p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-9 h-9 rounded bg-surface-container flex-shrink-0 overflow-hidden">
+<div class="img-tile" role="img" aria-label="Glass bottle of pure fresh organic whole milk against crisp modern studio backgr"><span class="material-symbols-outlined">water_full</span></div>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-table-cell text-table-cell font-semibold text-on-surface truncate">Organic Whole Milk 1L</span>
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-on-surface-variant">
+<span class="text-primary font-bold">3.8x Lift</span>
+<span>•</span>
+<span>+₹98 Expected AOV</span>
+</div>
+</div>
+</div>
+<button class="px-2.5 py-1 rounded bg-primary text-on-primary font-label-sm text-label-sm hover:bg-primary-container transition-colors flex-shrink-0" type="button">
+              Create Rule
+            </button>
+</div>
+<!-- Item 2 -->
+<div class="p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-9 h-9 rounded bg-surface-container flex-shrink-0 overflow-hidden">
+<div class="img-tile" role="img" aria-label="A jar of smooth artisanal creamy peanut butter with golden seal on minimal clean"><span class="material-symbols-outlined">kitchen</span></div>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-table-cell text-table-cell font-semibold text-on-surface truncate">Creamy Peanut Butter 500g</span>
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-on-surface-variant">
+<span class="text-primary font-bold">3.2x Lift</span>
+<span>•</span>
+<span>+₹185 Expected AOV</span>
+</div>
+</div>
+</div>
+<button class="px-2.5 py-1 rounded bg-primary text-on-primary font-label-sm text-label-sm hover:bg-primary-container transition-colors flex-shrink-0" type="button">
+              Create Rule
+            </button>
+</div>
+<!-- Item 3 -->
+<div class="p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-9 h-9 rounded bg-surface-container flex-shrink-0 overflow-hidden">
+<div class="img-tile" role="img" aria-label="Craft paper pouch packaging of organic rolled whole oats with clear viewing wind"><span class="material-symbols-outlined">breakfast_dining</span></div>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-table-cell text-table-cell font-semibold text-on-surface truncate">Organic Rolled Oats 1kg</span>
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-on-surface-variant">
+<span class="text-primary font-bold">2.9x Lift</span>
+<span>•</span>
+<span>+₹145 Expected AOV</span>
+</div>
+</div>
+</div>
+<button class="px-2.5 py-1 rounded bg-primary text-on-primary font-label-sm text-label-sm hover:bg-primary-container transition-colors flex-shrink-0" type="button">
+              Create Rule
+            </button>
+</div>
+<!-- Item 4 -->
+<div class="p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-9 h-9 rounded bg-surface-container flex-shrink-0 overflow-hidden">
+<div class="img-tile" role="img" aria-label="Modern white packaging tub of authentic plain Greek yogurt with fresh clean mini"><span class="material-symbols-outlined">icecream</span></div>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-table-cell text-table-cell font-semibold text-on-surface truncate">Greek Yogurt Plain 400g</span>
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-on-surface-variant">
+<span class="text-primary font-bold">2.4x Lift</span>
+<span>•</span>
+<span>+₹120 Expected AOV</span>
+</div>
+</div>
+</div>
+<button class="px-2.5 py-1 rounded bg-primary text-on-primary font-label-sm text-label-sm hover:bg-primary-container transition-colors flex-shrink-0" type="button">
+              Create Rule
+            </button>
+</div>
+</div>
+</div>
+<!-- Section 2: Top Substitutes (Cannibalization Risk) -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-tertiary text-[18px]">swap_horizontal_circle</span>
+<span>Substitutes &amp; Cannibalization Risk</span>
+</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Items mutually exclusive in basket profiles</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">High Margin Leakage</span>
+</div>
+<div class="flex flex-col gap-2 mt-2">
+<!-- Substitute 1 -->
+<div class="p-2.5 rounded-lg bg-surface-container-low flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-table-cell text-table-cell font-semibold text-on-surface">Cavendish Bananas Standard</span>
+<span class="font-label-sm text-label-sm text-tertiary font-bold">84% Conflict</span>
+</div>
+<!-- Progress Risk Bar -->
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full rounded-full" style="width: 84%"></div>
+</div>
+<div class="flex items-center justify-between text-label-sm font-label-sm">
+<span class="text-on-surface-variant">Price-sensitive downgrade substitute</span>
+<span class="px-1.5 py-0.2 rounded bg-error-container text-on-error-container font-semibold">Suppress in Recs</span>
+</div>
+</div>
+<!-- Substitute 2 -->
+<div class="p-2.5 rounded-lg bg-surface-container-low flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-table-cell text-table-cell font-semibold text-on-surface">Robusta Golden Bananas</span>
+<span class="font-label-sm text-label-sm text-tertiary font-bold">71% Conflict</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-tertiary-container h-full rounded-full" style="width: 71%"></div>
+</div>
+<div class="flex items-center justify-between text-label-sm font-label-sm">
+<span class="text-on-surface-variant">Regional variety alternate preference</span>
+<span class="text-on-surface-variant font-medium">Margin parity (0% leak)</span>
+</div>
+</div>
+<!-- Substitute 3 -->
+<div class="p-2.5 rounded-lg bg-surface-container-low flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-table-cell text-table-cell font-semibold text-on-surface">Organic Apples 1kg</span>
+<span class="font-label-sm text-label-sm text-secondary font-bold">52% Conflict</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 52%"></div>
+</div>
+<div class="flex items-center justify-between text-label-sm font-label-sm">
+<span class="text-on-surface-variant">Daily fruit single-choice constraint</span>
+<span class="text-on-surface-variant font-medium">Safe in bundles</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 3: Product2Vec Space (2D Embedding Map) -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">scatter_plot</span>
+<span>Product2Vec Latent Space (UMAP)</span>
+</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">64-Dimension Basket Context Projection</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Dim 1 vs Dim 2</span>
+</div>
+<!-- 2D Embedding Projection Canvas -->
+<div class="relative w-full h-48 bg-surface-container-low rounded-lg overflow-hidden flex items-center justify-center p-2">
+<!-- Scatter SVG Visualization -->
+<svg class="w-full h-full" viewbox="0 0 340 180" xmlns="http://www.w3.org/2000/svg">
+<!-- Background Cluster Contours -->
+<!-- Breakfast & Fresh Cluster -->
+<ellipse cx="140" cy="90" fill="#EAEDFF" opacity="0.6" rx="65" ry="50"></ellipse>
+<!-- Baking / Staples Cluster -->
+<ellipse cx="250" cy="55" fill="#DAE2FD" opacity="0.4" rx="45" ry="35"></ellipse>
+<!-- Daily Fresh Dairy Cluster -->
+<ellipse cx="70" cy="130" fill="#F2F3FF" opacity="0.5" rx="40" ry="30"></ellipse>
+<!-- Proximity Affinity Radius for Bananas -->
+<circle cx="140" cy="90" fill="none" opacity="0.7" r="38" stroke="#005C55" stroke-dasharray="3,3" stroke-width="1.2"></circle>
+<!-- Dots: Breakfast Staples Cluster (Teal & Amber) -->
+<circle cx="125" cy="78" fill="#005C55" opacity="0.75" r="3.5"></circle>
+<circle cx="155" cy="85" fill="#005C55" opacity="0.7" r="3.5"></circle>
+<circle cx="130" cy="105" fill="#006A63" opacity="0.7" r="4"></circle>
+<circle cx="160" cy="110" fill="#FEA619" opacity="0.8" r="3"></circle>
+<circle cx="115" cy="95" fill="#FEA619" opacity="0.8" r="3"></circle>
+<!-- Focus Item: Bananas -->
+<circle cx="140" cy="90" fill="#005C55" r="6" stroke="#FFFFFF" stroke-width="2"></circle>
+<text fill="#005C55" font-family="Inter" font-size="8" font-weight="700" text-anchor="middle" x="140" y="76">Bananas (Target)</text>
+<!-- Dots: Baking Staples Cluster (Purple/Muted) -->
+<circle cx="240" cy="50" fill="#3E4947" opacity="0.6" r="3.5"></circle>
+<circle cx="260" cy="62" fill="#3E4947" opacity="0.6" r="3.5"></circle>
+<circle cx="245" cy="70" fill="#3E4947" opacity="0.5" r="3"></circle>
+<circle cx="270" cy="45" fill="#3E4947" opacity="0.6" r="4"></circle>
+<text fill="#3E4947" font-family="Inter" font-size="7.5" font-weight="600" text-anchor="middle" x="250" y="32">Baking/Dry Pantry</text>
+<!-- Dots: Dairy/Beverage Cluster -->
+<circle cx="65" cy="125" fill="#FEA619" opacity="0.7" r="3.5"></circle>
+<circle cx="85" cy="135" fill="#FEA619" opacity="0.6" r="3"></circle>
+<circle cx="55" cy="140" fill="#0F766E" opacity="0.7" r="3.5"></circle>
+<text fill="#684000" font-family="Inter" font-size="7.5" font-weight="600" text-anchor="middle" x="70" y="112">Cold Dairy</text>
+</svg>
+<!-- Floating Cosine Similarity pill -->
+<div class="absolute bottom-2 right-2 bg-surface-container-lowest/90 px-2 py-0.5 rounded shadow-sm font-label-sm text-label-sm text-primary font-semibold">
+            Cosine Sim: 0.87
+          </div>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">insights</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Dense semantic proximity to <span class="font-semibold text-on-surface">Daily Breakfast &amp; Morning Fuel</span> clusters. Inverting recommendation ordering during morning peak (06:00 - 10:30) increases aggregate basket conversion by <strong class="text-primary">+14.2%</strong>.
+          </p>
+</div>
+</div>
+</div>
+</div>
+</div>
